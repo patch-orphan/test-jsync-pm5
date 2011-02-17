@@ -3,7 +3,7 @@
 use Test::More tests => 1;
 
 BEGIN {
-	use_ok( 'Test::JSON' );
+	use_ok( 'Test::JSYNC' );
 }
 
-diag( "Testing Test::JSON $Test::JSON::VERSION, Perl $], $^X" );
+diag( "Testing Test::JSYNC $Test::JSYNC::VERSION, Perl $], $^X" );

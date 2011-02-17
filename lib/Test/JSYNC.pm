@@ -1,72 +1,70 @@
-package Test::JSON;
+package Test::JSYNC;
 
 use strict;
 use Carp;
 use Test::Differences;
-use JSON::Any;
+use JSYNC;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/is_json is_valid_json/;
+our @EXPORT = qw/is_jsync is_valid_jsync/;
 
 =head1 NAME
 
-Test::JSON - Test JSON data
+Test::JSYNC - Test JSYNC data
 
 =head1 VERSION
 
-Version 0.11
+Version 0.01
 
 =cut
 
 our $VERSION = '0.11';
 
-my $JSON = JSON::Any->new;
-
 =head1 SYNOPSIS
 
- use Test::JSON;
+ use Test::JSYNC;
 
- is_valid_json $json,                 '... json is well formed';
- is_json       $json, $expected_json, '... and it matches what we expected';
+ is_valid_jsync $jsync,                  '... jsync is well formed';
+ is_jsync       $jsync, $expected_jsync, '... and it matches what we expected';
 
 =head1 EXPORT
 
 =over 4
 
-=item * is_valid_json
+=item * is_valid_jsync
 
-=item * is_json
+=item * is_jsync
 
 =back
 
 =head1 DESCRIPTION
 
-JavaScript Object Notation (JSON) is a lightweight data interchange format.
-L<Test::JSON> makes it easy to verify that you have built valid JSON and that
-it matches your expected output.
+JSON YAML Notation Coding (JSYNC) is an extension of JSON that can serialize
+any data objects.  L<Test::JSYNC> makes it easy to verify that you have built
+valid JSYNC and that it matches your expected output.
 
-See L<http://www.json.org/> for more information.
+See L<http://jsync.org/> for more information.
 
 =head1 TESTS
 
-=head2 is_valid_json
+=head2 is_valid_jsync
 
- is_valid_json $json, '... json is well formed';
+ is_valid_jsync $jsync, '... jsync is well formed';
 
-Test passes if the string passed is valid JSON.
+Test passes if the string passed is valid JSYNC.
 
-=head2 is_json
+=head2 is_jsync
 
- is_json $json, $expected_json, '... and it matches what we expected';
+ is_jsync $jsync, $expected_jsync, '... and it matches what we expected';
 
-Test passes if the two JSON strings are valid JSON and evaluate to the same
+Test passes if the two JSYNC strings are valid JSYNC and evaluate to the same
 data structure.
 
-L<Test::Differences> is used to provide easy diagnostics of why the JSON
+L<Test::Differences> is used to provide easy diagnostics of why the JSYNC
 structures did not match.  For example:
 
-   Failed test '... and identical JSON should match'
-   in t/10testjson.t at line 14.
+   Failed test '... and identical JSYNC should match'
+   in t/10testjsync.t at line 14.
  +----+---------------------------+---------------------------+
  | Elt|Got                        |Expected                   |
  +----+---------------------------+---------------------------+
@@ -74,7 +72,7 @@ structures did not match.  For example:
  |   1|  bool => '1',             |  bool => '1',             |
  |   2|  description => bless( {  |  description => bless( {  |
  |   3|    value => undef         |    value => undef         |
- |   4|  }, 'JSON::NotString' ),  |  }, 'JSON::NotString' ),  |
+ |   4|  }, 'JSYNC::NotString' ), |  }, 'JSYNC::NotString' ), |
  |   5|  id => '1',               |  id => '1',               |
  *   6|  name => 'foo'            |  name => 'fo'             *
  |   7|}                          |}                          |
@@ -82,15 +80,15 @@ structures did not match.  For example:
 
 =cut
 
-sub is_valid_json ($;$) {
+sub is_valid_jsync ($;$) {
     my ( $input, $test_name ) = @_;
-    croak "usage: is_valid_json(input,test_name)"
+    croak "usage: is_valid_jsync(input,test_name)"
       unless defined $input;
-    eval { $JSON->decode($input) };
+    eval { JSYNC::load($input) };
     my $test = __PACKAGE__->builder;
     if ( my $error = $@ ) {
         $test->ok( 0, $test_name );
-        $test->diag("Input was not valid JSON:\n\n\t$error");
+        $test->diag("Input was not valid JSYNC:\n\n\t$error");
         return;
     }
     else {
@@ -99,26 +97,26 @@ sub is_valid_json ($;$) {
     }
 }
 
-sub is_json ($$;$) {
+sub is_jsync ($$;$) {
     my ( $input, $expected, $test_name ) = @_;
-    croak "usage: is_json(input,expected,test_name)"
+    croak "usage: is_jsync(input,expected,test_name)"
       unless defined $input && defined $expected;
 
-    my %json_for;
+    my %jsync_for;
     foreach my $item ( [ input => $input ], [ expected => $expected ] ) {
-        my $json = eval { $JSON->decode( $item->[1] ) };
+        my $jsync = eval { JSYNC::load( $item->[1] ) };
         my $test = __PACKAGE__->builder;
         if ( my $error = $@ ) {
             $test->ok( 0, $test_name );
-            $test->diag("$item->[0] was not valid JSON: $error");
+            $test->diag("$item->[0] was not valid JSYNC: $error");
             return;
         }
         else {
-            $json_for{ $item->[0] } = $json;
+            $jsync_for{ $item->[0] } = $jsync;
         }
     }
     local $Test::Builder::Level = $Test::Builder::Level + 1;
-    eq_or_diff( $json_for{input}, $json_for{expected}, $test_name );
+    eq_or_diff( $jsync_for{input}, $jsync_for{expected}, $test_name );
 }
 
 =head1 AUTHOR
@@ -127,28 +125,20 @@ Curtis "Ovid" Poe, C<< <ovid@cpan.org> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to
-C<bug-test-json@rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-JSON>.
-I will be notified, and then you'll automatically be notified of progress on
-your bug as I make changes.
+Please report any bugs or feature requests hrough the web interface at
+L<https://github.com/patch/test-jsync-pm5/issues>.  I will be notified, and
+then you'll automatically be notified of progress on your bug as I make
+changes.
 
 =head1 SEE ALSO
 
-This test module uses L<JSON::Any> and L<Test::Differences>.
+This test module uses L<JSYNC> and L<Test::Differences>.
 
 =head1 ACKNOWLEDGEMENTS
 
 The development of this module was sponsored by Kineticode,
 L<http://www.kineticode.com/>, the leading provider of services for the
 Bricolage content management system, L<http://www.bricolage.cc/>.
-
-Thanks to Makamaka Hannyaharamitu C<makamaka@cpan.org> for a patch to make
-this work with JSON 2.0.
-
-Thanks to Stevan Little for suggesting a switch to L<JSON::Any>.  This makes
-it easier for this module to work with whatever JSON module you have
-installed.
 
 =head1 COPYRIGHT & LICENSE
 

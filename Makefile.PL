@@ -3,14 +3,14 @@ use ExtUtils::MakeMaker;
 WriteMakefile
 (
           'INSTALLDIRS' => 'site',
-          'NAME' => 'Test::JSON',
+          'NAME' => 'Test::JSYNC',
           'EXE_FILES' => [],
-          'VERSION_FROM' => 'lib/Test/JSON.pm',
+          'VERSION_FROM' => 'lib/Test/JSYNC.pm',
           'PREREQ_PM' => {
                            'Test::Differences' => '0.47',
                            'Test::Tester' => '0.107',
                            'Test::Simple' => '0.62',
-                           'JSON::Any' => '1.2'
+                           'JSYNC' => 0
                          }
         )
 ;

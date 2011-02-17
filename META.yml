@@ -1,21 +1,21 @@
 ---
-name: Test-JSON
-version: 0.11
+name: Test-JSYNC
+version: 0.01
 author:
   - 'Curtis "Ovid" Poe <ovid@cpan.org>'
-abstract: Test JSON data
+abstract: Test JSYNC data
 license: perl
 resources:
   license: ~
 requires:
-  JSON::Any: 1.2
+  JSYNC: 0
   Test::Differences: 0.47
   Test::Simple: 0.62
   Test::Tester: 0.107
 provides:
-  Test::JSON:
-    file: lib/Test/JSON.pm
-    version: 0.11
+  Test::JSYNC:
+    file: lib/Test/JSYNC.pm
+    version: 0.01
 generated_by: Module::Build version 0.32
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
