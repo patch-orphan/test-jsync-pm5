@@ -1,11 +1,12 @@
 Build.PL
 Changes
 lib/Test/JSYNC.pm
+Makefile.PL
 MANIFEST
 META.yml			# Will be created by "make dist"
 README
 t/00-load.t
-t/10testjsync.t
-t/pod-coverage.t
-t/pod.t
-Makefile.PL
+t/json.t
+t/jsync.t
+xt/author/pod-coverage.t
+xt/author/pod.t
