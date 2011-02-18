@@ -4,8 +4,8 @@ use Test::Tester;
 use Test::JSYNC;
 use Test::More tests => 36;
 
-my $jsync = '{"bool":1,"name":"foo","id":1,"description":null}';
-my $good  = '{"bool":1,"name":"foo","id":1,"description":null}';
+my $jsync = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*1",null]]';
+my $good  = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*1",null]]';
 
 my $desc = 'identical JSYNC should match';
 check_test(
@@ -17,7 +17,7 @@ check_test(
     $desc
 );
 
-$good = '{"bool":1,"id":1,"name":"foo","description":null}';
+$good = '[{"&":"1","a":"*1","..!":"foo"},["!!perl/array:Foo","*1",null]]';
 $desc = 'attribute order should not matter';
 check_test(
     sub { is_jsync $jsync, $good, $desc },
@@ -28,8 +28,8 @@ check_test(
     $desc
 );
 
-# "null" is misspelled
-my $invalid = '{"bool":1,"name":"fo","id":1,"description":nul}';
+# inalid type: perl/arry
+my $invalid = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/arry:Foo","*1",null]]';
 $desc = 'Invalid jsync should fail';
 check_test(
     sub { is_jsync $jsync, $invalid, $desc },
@@ -40,8 +40,8 @@ check_test(
     $desc
 );
 
-# "fo" should be "foo"
-my $not_the_same = '{"bool":1,"name":"fo","id":1,"description":null}';
+# "*2" should be "*1"
+my $not_the_same = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*2",null]]';
 $desc = 'Different JSYNC should fail';
 check_test(
     sub { is_jsync $jsync, $not_the_same, $desc },
@@ -52,7 +52,7 @@ check_test(
     $desc
 );
 
-$jsync = '{"bool":1,"name":"fo","id":1,"description":null}';
+$jsync = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*1",null]]';
 $desc  = 'Valid JSYNC should succeed';
 check_test(
     sub { is_valid_jsync $jsync, $desc },
@@ -63,7 +63,7 @@ check_test(
     $desc
 );
 
-$invalid = '{"bool":1,"name":"fo","id":1,"description":nul}';
+$invalid = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/arry:Foo","*1",null]]';
 $desc    = 'Invalid JSYNC should fail';
 check_test(
     sub { is_valid_jsync $invalid, $desc },
