@@ -9,7 +9,7 @@ my $good = '{"bool":1,"name":"foo","id":1,"description":null}';
 
 my $desc = 'identical JSON should match';
 check_test(
-    sub { is_jsync $json, $good, $desc },
+    sub { jsync_is $json, $good, $desc },
     {
         ok   => 1,
         name => $desc,
@@ -20,7 +20,7 @@ check_test(
 $good = '{"bool":1,"id":1,"name":"foo","description":null}';
 $desc = 'attribute order should not matter';
 check_test(
-    sub { is_jsync $json, $good, $desc },
+    sub { jsync_is $json, $good, $desc },
     {
         ok   => 1,
         name => $desc,
@@ -32,7 +32,7 @@ check_test(
 my $invalid = '{"bool":1,"name":"fo","id":1,"description":nul}';
 $desc = 'Invalid json should fail';
 check_test(
-    sub { is_jsync $json, $invalid, $desc },
+    sub { jsync_is $json, $invalid, $desc },
     {
         ok   => 0,
         name => $desc,
@@ -44,7 +44,7 @@ check_test(
 my $not_the_same = '{"bool":1,"name":"fo","id":1,"description":null}';
 $desc = 'Different JSON should fail';
 check_test(
-    sub { is_jsync $json, $not_the_same, $desc },
+    sub { jsync_is $json, $not_the_same, $desc },
     {
         ok   => 0,
         name => $desc,

@@ -6,7 +6,7 @@ use Test::Differences;
 use JSYNC;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/is_jsync is_valid_jsync/;
+our @EXPORT = qw/jsync_is is_valid_jsync/;
 
 =head1 NAME
 
@@ -25,7 +25,7 @@ our $VERSION = '0.01';
    use Test::JSYNC;
 
    is_valid_jsync $jsync,                  'jsync is well formed';
-   is_jsync       $jsync, $expected_jsync, 'jsync matches what we expected';
+   jsync_is       $jsync, $expected_jsync, 'jsync matches what we expected';
 
 =head1 DESCRIPTION
 
@@ -46,12 +46,12 @@ Test passes if the string passed is valid JSYNC.
 
    is_valid_jsync $jsync, 'jsync is well formed';
 
-=head2 is_jsync
+=head2 jsync_is
 
 Test passes if the two JSYNC strings are valid JSYNC and evaluate to the same
 data structure.
 
-   is_jsync $jsync, $expected_jsync, 'jsync matches what we expected';
+   jsync_is $jsync, $expected_jsync, 'jsync matches what we expected';
 
 L<Test::Differences> is used to provide easy diagnostics of why the JSYNC
 structures did not match.  For example:
@@ -90,9 +90,9 @@ sub is_valid_jsync ($;$) {
     }
 }
 
-sub is_jsync ($$;$) {
+sub jsync_is ($$;$) {
     my ( $input, $expected, $test_name ) = @_;
-    croak "usage: is_jsync(input,expected,test_name)"
+    croak "usage: jsync_is(input,expected,test_name)"
       unless defined $input && defined $expected;
 
     my %jsync_for;

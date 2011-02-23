@@ -9,7 +9,7 @@ my $good  = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*1",null]]';
 
 my $desc = 'identical JSYNC should match';
 check_test(
-    sub { is_jsync $jsync, $good, $desc },
+    sub { jsync_is $jsync, $good, $desc },
     {
         ok   => 1,
         name => $desc,
@@ -20,7 +20,7 @@ check_test(
 $good = '[{"&":"1","a":"*1","..!":"foo"},["!!perl/array:Foo","*1",null]]';
 $desc = 'attribute order should not matter';
 check_test(
-    sub { is_jsync $jsync, $good, $desc },
+    sub { jsync_is $jsync, $good, $desc },
     {
         ok   => 1,
         name => $desc,
@@ -32,7 +32,7 @@ check_test(
 my $invalid = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/arry:Foo","*1",null]]';
 $desc = 'Invalid jsync should fail';
 check_test(
-    sub { is_jsync $jsync, $invalid, $desc },
+    sub { jsync_is $jsync, $invalid, $desc },
     {
         ok   => 0,
         name => $desc,
@@ -44,7 +44,7 @@ check_test(
 my $not_the_same = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*2",null]]';
 $desc = 'Different JSYNC should fail';
 check_test(
-    sub { is_jsync $jsync, $not_the_same, $desc },
+    sub { jsync_is $jsync, $not_the_same, $desc },
     {
         ok   => 0,
         name => $desc,
