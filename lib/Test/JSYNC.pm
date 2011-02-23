@@ -14,7 +14,7 @@ Test::JSYNC - Test JSYNC data
 
 =head1 VERSION
 
-Version 0.01
+This document describes Test::JSYNC version 0.01.
 
 =cut
 
@@ -22,61 +22,54 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
- use Test::JSYNC;
+   use Test::JSYNC;
 
- is_valid_jsync $jsync,                  '... jsync is well formed';
- is_jsync       $jsync, $expected_jsync, '... and it matches what we expected';
-
-=head1 EXPORT
-
-=over 4
-
-=item * is_valid_jsync
-
-=item * is_jsync
-
-=back
+   is_valid_jsync $jsync,                  'jsync is well formed';
+   is_jsync       $jsync, $expected_jsync, 'jsync matches what we expected';
 
 =head1 DESCRIPTION
 
 JSON YAML Notation Coding (JSYNC) is an extension of JSON that can serialize
-any data objects.  L<Test::JSYNC> makes it easy to verify that you have built
+any data objects.  Test::JSYNC makes it easy to verify that you have built
 valid JSYNC and that it matches your expected output.
 
-See L<http://jsync.org/> for more information.
+This module uses the L<JSYNC> module, which is currently the only CPAN module
+to support JSYNC; however, the module itself states that it "is a very early
+release of JSYNC, and should not be used at all unless you know what you are
+doing."
 
-=head1 TESTS
+=head1 EXPORTED TESTS
 
 =head2 is_valid_jsync
 
- is_valid_jsync $jsync, '... jsync is well formed';
-
 Test passes if the string passed is valid JSYNC.
 
-=head2 is_jsync
+   is_valid_jsync $jsync, 'jsync is well formed';
 
- is_jsync $jsync, $expected_jsync, '... and it matches what we expected';
+=head2 is_jsync
 
 Test passes if the two JSYNC strings are valid JSYNC and evaluate to the same
 data structure.
 
+   is_jsync $jsync, $expected_jsync, 'jsync matches what we expected';
+
 L<Test::Differences> is used to provide easy diagnostics of why the JSYNC
 structures did not match.  For example:
 
-   Failed test '... and identical JSYNC should match'
-   in t/10testjsync.t at line 14.
- +----+---------------------------+---------------------------+
- | Elt|Got                        |Expected                   |
- +----+---------------------------+---------------------------+
- |   0|{                          |{                          |
- |   1|  bool => '1',             |  bool => '1',             |
- |   2|  description => bless( {  |  description => bless( {  |
- |   3|    value => undef         |    value => undef         |
- |   4|  }, 'JSYNC::NotString' ), |  }, 'JSYNC::NotString' ), |
- |   5|  id => '1',               |  id => '1',               |
- *   6|  name => 'foo'            |  name => 'fo'             *
- |   7|}                          |}                          |
- +----+---------------------------+---------------------------+
+    #   Failed test 'jsync matches what we expected'
+    #   in t/jsync.t at line 10.
+    # +----+---------------------------+---------------------------+
+    # | Elt|Got                        |Expected                   |
+    # +----+---------------------------+---------------------------+
+    # |   0|{                          |{                          |
+    # |   1|  bool => '1',             |  bool => '1',             |
+    # |   2|  description => bless( {  |  description => bless( {  |
+    # |   3|    value => undef         |    value => undef         |
+    # |   4|  }, 'Foo' ),              |  }, 'Foo' ),              |
+    # |   5|  id => '1',               |  id => '1',               |
+    # *   6|  name => 'foo'            |  name => 'fo'             *
+    # |   7|}                          |}                          |
+    # +----+---------------------------+---------------------------+
 
 =cut
 
@@ -119,26 +112,20 @@ sub is_jsync ($$;$) {
     eq_or_diff( $jsync_for{input}, $jsync_for{expected}, $test_name );
 }
 
-=head1 AUTHOR
-
-Curtis "Ovid" Poe, C<< <ovid@cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests hrough the web interface at
-L<https://github.com/patch/test-jsync-pm5/issues>.  I will be notified, and
-then you'll automatically be notified of progress on your bug as I make
-changes.
-
 =head1 SEE ALSO
 
-This test module uses L<JSYNC> and L<Test::Differences>.
+This module uses L<JSYNC> and L<Test::Differences>, and is based on
+L<Test::JSON>.
+
+=head1 AUTHORS
+
+Nick Patch <patch@cpan.org>
+
+Curtis "Ovid" Poe <ovid@cpan.org>
 
 =head1 ACKNOWLEDGEMENTS
 
-The development of this module was sponsored by Kineticode,
-L<http://www.kineticode.com/>, the leading provider of services for the
-Bricolage content management system, L<http://www.bricolage.cc/>.
+This module was forked from L<Test::JSON> by Curtis "Ovid" Poe.
 
 =head1 COPYRIGHT & LICENSE
 
