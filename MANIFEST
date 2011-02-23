@@ -1,12 +1,14 @@
 Build.PL
 Changes
+INSTALL
 lib/Test/JSYNC.pm
-Makefile.PL
-MANIFEST
-META.yml			# Will be created by "make dist"
+LICENSE
+MANIFEST			This list of files
+META.yml
 README
 t/00-load.t
 t/json.t
 t/jsync.t
+xt/author/kwalitee.t
 xt/author/pod-coverage.t
 xt/author/pod.t

@@ -1,75 +1,75 @@
 #!perl 
-
 use Test::Tester;
 use Test::JSYNC;
 use Test::More tests => 36;
 
 my $jsync = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*1",null]]';
-my $good  = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*1",null]]';
+my ($name, $invalid, $is, $isnt);
 
-my $desc = 'identical JSYNC should match';
+$name = 'Identical JSYNC should match';
+$is   = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*1",null]]';
 check_test(
-    sub { jsync_is $jsync, $good, $desc },
+    sub { jsync_is $jsync, $is, $name },
     {
         ok   => 1,
-        name => $desc,
+        name => $name,
     },
-    $desc
+    $name
 );
 
-$good = '[{"&":"1","a":"*1","..!":"foo"},["!!perl/array:Foo","*1",null]]';
-$desc = 'attribute order should not matter';
+$name = 'Attribute order should not matter';
+$is   = '[{"&":"1","a":"*1","..!":"foo"},["!!perl/array:Foo","*1",null]]';
 check_test(
-    sub { jsync_is $jsync, $good, $desc },
+    sub { jsync_is $jsync, $is, $name },
     {
         ok   => 1,
-        name => $desc,
+        name => $name,
     },
-    $desc
+    $name
 );
 
 # inalid type: perl/arry
-my $invalid = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/arry:Foo","*1",null]]';
-$desc = 'Invalid jsync should fail';
+$name    = 'Invalid JSYNC should fail';
+$invalid = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/arry:Foo","*1",null]]';
 check_test(
-    sub { jsync_is $jsync, $invalid, $desc },
+    sub { jsync_is $jsync, $invalid, $name },
     {
         ok   => 0,
-        name => $desc,
+        name => $name,
     },
-    $desc
+    $name
 );
 
 # "*2" should be "*1"
-my $not_the_same = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*2",null]]';
-$desc = 'Different JSYNC should fail';
+$name = 'Different JSYNC should fail';
+$isnt = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*2",null]]';
 check_test(
-    sub { jsync_is $jsync, $not_the_same, $desc },
+    sub { jsync_is $jsync, $isnt, $name },
     {
         ok   => 0,
-        name => $desc,
+        name => $name,
     },
-    $desc
+    $name
 );
 
+$name  = 'Valid JSYNC should succeed';
 $jsync = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*1",null]]';
-$desc  = 'Valid JSYNC should succeed';
 check_test(
-    sub { is_valid_jsync $jsync, $desc },
+    sub { is_valid_jsync $jsync, $name },
     {
         ok   => 1,
-        name => $desc,
+        name => $name,
     },
-    $desc
+    $name
 );
 
+$name    = 'Invalid JSYNC should fail';
 $invalid = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/arry:Foo","*1",null]]';
-$desc    = 'Invalid JSYNC should fail';
 check_test(
-    sub { is_valid_jsync $invalid, $desc },
+    sub { is_valid_jsync $invalid, $name },
     {
         ok   => 0,
-        name => $desc,
+        name => $name,
     },
-    $desc
+    $name
 );

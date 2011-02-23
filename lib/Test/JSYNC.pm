@@ -1,12 +1,64 @@
 package Test::JSYNC;
 
+use 5.006;
 use strict;
+use parent 'Test::Builder::Module';
+use English qw( -no_match_vars );
 use Carp;
-use Test::Differences;
 use JSYNC;
+use Test::Differences;
 
-use base 'Test::Builder::Module';
-our @EXPORT = qw/jsync_is is_valid_jsync/;
+our $VERSION = '0.01';
+our @EXPORT  = qw( is_valid_jsync jsync_is );
+
+sub is_valid_jsync ($;$) {
+    my ($input, $test_name) = @_;
+    my $test = __PACKAGE__->builder;
+
+    croak 'usage: is_valid_jsync(input, test_name)'
+        if !defined $input;
+
+    eval { JSYNC::load($input) };
+
+    if (my $error = $EVAL_ERROR) {
+        $test->ok(0, $test_name);
+        $test->diag("Input was not valid JSYNC: $error");
+        return;
+    }
+
+    $test->ok(1, $test_name);
+    return 1;
+}
+
+sub jsync_is ($$;$) {
+    my ($input, $expected, $test_name) = @_;
+    my $test = __PACKAGE__->builder;
+    my %result_for;
+
+    croak 'usage: jsync_is(input, expected, test_name)'
+        if !defined $input || !defined $expected;
+
+    for my $item (
+        { key => 'input',    value => $input    },
+        { key => 'expected', value => $expected },
+    ) {
+        $result_for{ $item->{key} } = eval { JSYNC::load( $item->{value} ) };
+
+        if (my $error = $EVAL_ERROR) {
+            $test->ok(0, $test_name);
+            $test->diag(ucfirst "$item->{key} was not valid JSYNC: $error");
+            return;
+        }
+    }
+
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
+
+    return eq_or_diff($result_for{input}, $result_for{expected}, $test_name);
+}
+
+1;
+
+__END__
 
 =head1 NAME
 
@@ -17,8 +69,6 @@ Test::JSYNC - Test JSYNC data
 This document describes Test::JSYNC version 0.01.
 
 =cut
-
-our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
@@ -71,47 +121,6 @@ structures did not match.  For example:
     # |   7|}                          |}                          |
     # +----+---------------------------+---------------------------+
 
-=cut
-
-sub is_valid_jsync ($;$) {
-    my ( $input, $test_name ) = @_;
-    croak "usage: is_valid_jsync(input,test_name)"
-      unless defined $input;
-    eval { JSYNC::load($input) };
-    my $test = __PACKAGE__->builder;
-    if ( my $error = $@ ) {
-        $test->ok( 0, $test_name );
-        $test->diag("Input was not valid JSYNC:\n\n\t$error");
-        return;
-    }
-    else {
-        $test->ok( 1, $test_name );
-        return 1;
-    }
-}
-
-sub jsync_is ($$;$) {
-    my ( $input, $expected, $test_name ) = @_;
-    croak "usage: jsync_is(input,expected,test_name)"
-      unless defined $input && defined $expected;
-
-    my %jsync_for;
-    foreach my $item ( [ input => $input ], [ expected => $expected ] ) {
-        my $jsync = eval { JSYNC::load( $item->[1] ) };
-        my $test = __PACKAGE__->builder;
-        if ( my $error = $@ ) {
-            $test->ok( 0, $test_name );
-            $test->diag("$item->[0] was not valid JSYNC: $error");
-            return;
-        }
-        else {
-            $jsync_for{ $item->[0] } = $jsync;
-        }
-    }
-    local $Test::Builder::Level = $Test::Builder::Level + 1;
-    eq_or_diff( $jsync_for{input}, $jsync_for{expected}, $test_name );
-}
-
 =head1 SEE ALSO
 
 This module uses L<JSYNC> and L<Test::Differences>, and is based on
@@ -135,5 +144,3 @@ This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
 =cut
-
-1;

@@ -1,19 +1,70 @@
-Test-JSYNC
+NAME
+    Test::JSYNC - Test JSYNC data
 
-This module allows for easy testing of JSYNC data.
+VERSION
+    This document describes Test::JSYNC version 0.01.
 
-INSTALLATION
+SYNOPSIS
+       use Test::JSYNC;
 
-To install this module, run the following commands:
+       is_valid_jsync $jsync,                  'jsync is well formed';
+       jsync_is       $jsync, $expected_jsync, 'jsync matches what we expected';
 
-    perl Build.PL
-    ./Build
-    ./Build test
-    ./Build install
+DESCRIPTION
+    JSON YAML Notation Coding (JSYNC) is an extension of JSON that can
+    serialize any data objects. Test::JSYNC makes it easy to verify that you
+    have built valid JSYNC and that it matches your expected output.
 
-COPYRIGHT AND LICENCE
+    This module uses the JSYNC module, which is currently the only CPAN
+    module to support JSYNC; however, the module itself states that it "is a
+    very early release of JSYNC, and should not be used at all unless you
+    know what you are doing."
 
-Copyright (C) 2005 Curtis "Ovid" Poe
+EXPORTED TESTS
+  is_valid_jsync
+    Test passes if the string passed is valid JSYNC.
 
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+       is_valid_jsync $jsync, 'jsync is well formed';
+
+  jsync_is
+    Test passes if the two JSYNC strings are valid JSYNC and evaluate to the
+    same data structure.
+
+       jsync_is $jsync, $expected_jsync, 'jsync matches what we expected';
+
+    Test::Differences is used to provide easy diagnostics of why the JSYNC
+    structures did not match. For example:
+
+        #   Failed test 'jsync matches what we expected'
+        #   in t/jsync.t at line 10.
+        # +----+---------------------------+---------------------------+
+        # | Elt|Got                        |Expected                   |
+        # +----+---------------------------+---------------------------+
+        # |   0|{                          |{                          |
+        # |   1|  bool => '1',             |  bool => '1',             |
+        # |   2|  description => bless( {  |  description => bless( {  |
+        # |   3|    value => undef         |    value => undef         |
+        # |   4|  }, 'Foo' ),              |  }, 'Foo' ),              |
+        # |   5|  id => '1',               |  id => '1',               |
+        # *   6|  name => 'foo'            |  name => 'fo'             *
+        # |   7|}                          |}                          |
+        # +----+---------------------------+---------------------------+
+
+SEE ALSO
+    This module uses JSYNC and Test::Differences, and is based on
+    Test::JSON.
+
+AUTHORS
+    Nick Patch <patch@cpan.org>
+
+    Curtis "Ovid" Poe <ovid@cpan.org>
+
+ACKNOWLEDGEMENTS
+    This module was forked from Test::JSON by Curtis "Ovid" Poe.
+
+COPYRIGHT & LICENSE
+    Copyright 2005-2007 Curtis "Ovid" Poe, all rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
