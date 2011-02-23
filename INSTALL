@@ -1,10 +1,10 @@
-Operator::Util Installation
+Test::JSYNC Installation
 
 # install via cpanminus
-cpanm Operator::Util
+cpanm Test::JSYNC
 
 # install via CPAN shell
-cpan Operator::Util
+cpan Test::JSYNC
 
 # install manually
 perl Build.PL

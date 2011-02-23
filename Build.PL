@@ -14,7 +14,6 @@ my $builder = Module::Build->new(
     requires => {
         'perl'              => '5.6.0',
         'parent'            => 0,
-        'Carp'              => 0,
         'JSYNC'             => 0,
         'Test::Differences' => 0.47,
         'Test::Simple'      => 0.62,

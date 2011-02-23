@@ -106,20 +106,20 @@ data structure.
 L<Test::Differences> is used to provide easy diagnostics of why the JSYNC
 structures did not match.  For example:
 
-    #   Failed test 'jsync matches what we expected'
-    #   in t/jsync.t at line 10.
-    # +----+---------------------------+---------------------------+
-    # | Elt|Got                        |Expected                   |
-    # +----+---------------------------+---------------------------+
-    # |   0|{                          |{                          |
-    # |   1|  bool => '1',             |  bool => '1',             |
-    # |   2|  description => bless( {  |  description => bless( {  |
-    # |   3|    value => undef         |    value => undef         |
-    # |   4|  }, 'Foo' ),              |  }, 'Foo' ),              |
-    # |   5|  id => '1',               |  id => '1',               |
-    # *   6|  name => 'foo'            |  name => 'fo'             *
-    # |   7|}                          |}                          |
-    # +----+---------------------------+---------------------------+
+      Failed test 'jsync matches what we expected'
+      in t/jsync.t at line 10.
+    +----+---------------------------+---------------------------+
+    | Elt|Got                        |Expected                   |
+    +----+---------------------------+---------------------------+
+    |   0|{                          |{                          |
+    |   1|  bool => '1',             |  bool => '1',             |
+    |   2|  description => bless( {  |  description => bless( {  |
+    |   3|    value => undef         |    value => undef         |
+    |   4|  }, 'Foo' ),              |  }, 'Foo' ),              |
+    |   5|  id => '1',               |  id => '1',               |
+    *   6|  name => 'foo'            |  name => 'fo'             *
+    |   7|}                          |}                          |
+    +----+---------------------------+---------------------------+
 
 =head1 SEE ALSO
 
@@ -138,7 +138,9 @@ This module was forked from L<Test::JSON> by Curtis "Ovid" Poe.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2005-2007 Curtis "Ovid" Poe, all rights reserved.
+Copyright 2011 Nick Patch
+
+Copyright 2005-2007 Curtis "Ovid" Poe.  All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

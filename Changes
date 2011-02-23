@@ -1,6 +1,7 @@
 ---
 version: 0.01
-date:    XXX
+date:    2011-02-23
 changes:
 - First release
 - Forked from Test::JSON by Curtis "Ovid" Poe
+- Broke naming convention of Test::JSON with jsync_is instead of is_jsync
