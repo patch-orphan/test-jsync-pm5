@@ -8,8 +8,12 @@ use Carp;
 use JSYNC;
 use Test::Differences;
 
-our $VERSION = '0.01';
-our @EXPORT  = qw( jsync_ok jsync_is );
+our $VERSION   = '0.01';
+our @EXPORT    = qw( jsync_ok jsync_is );
+our @EXPORT_OK = qw( is_valid_jsync is_jsync );
+
+*is_valid_jsync = \&jsync_ok;
+*is_jsync       = \&jsync_is;
 
 sub jsync_ok ($;$) {
     my ($input, $test_name) = @_;
@@ -96,6 +100,9 @@ Test passes if the string passed is valid JSYNC.
 
    jsync_ok $jsync, 'jsync is well formed';
 
+C<is_valid_jsync> is provided as an alternative to C<jsync_ok> using the same
+naming convention as L<Test::JSON> but is not exported by default.
+
 =head2 jsync_is
 
 Test passes if the two JSYNC strings are valid JSYNC and evaluate to the same
@@ -120,6 +127,9 @@ structures did not match.  For example:
     *   6|  name => 'foo'            |  name => 'fo'             *
     |   7|}                          |}                          |
     +----+---------------------------+---------------------------+
+
+C<is_jsync> is provided as an alternative to C<jsync_is> using the same naming
+convention as L<Test::JSON> but is not exported by default.
 
 =head1 SEE ALSO
 

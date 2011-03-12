@@ -26,6 +26,9 @@ EXPORTED TESTS
 
        jsync_ok $jsync, 'jsync is well formed';
 
+    "is_valid_jsync" is provided as an alternative to "jsync_ok" using the
+    same naming convention as Test::JSON but is not exported by default.
+
   jsync_is
     Test passes if the two JSYNC strings are valid JSYNC and evaluate to the
     same data structure.
@@ -49,6 +52,9 @@ EXPORTED TESTS
         *   6|  name => 'foo'            |  name => 'fo'             *
         |   7|}                          |}                          |
         +----+---------------------------+---------------------------+
+
+    "is_jsync" is provided as an alternative to "jsync_is" using the same
+    naming convention as Test::JSON but is not exported by default.
 
 SEE ALSO
     This module uses JSYNC and Test::Differences, and is based on
