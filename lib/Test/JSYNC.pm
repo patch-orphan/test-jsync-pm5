@@ -9,13 +9,13 @@ use JSYNC;
 use Test::Differences;
 
 our $VERSION = '0.01';
-our @EXPORT  = qw( is_valid_jsync jsync_is );
+our @EXPORT  = qw( jsync_ok jsync_is );
 
-sub is_valid_jsync ($;$) {
+sub jsync_ok ($;$) {
     my ($input, $test_name) = @_;
     my $test = __PACKAGE__->builder;
 
-    croak 'usage: is_valid_jsync(input, test_name)'
+    croak 'usage: jsync_ok(input, test_name)'
         if !defined $input;
 
     eval { JSYNC::load($input) };
@@ -74,8 +74,8 @@ This document describes Test::JSYNC version 0.01.
 
    use Test::JSYNC;
 
-   is_valid_jsync $jsync,                  'jsync is well formed';
-   jsync_is       $jsync, $expected_jsync, 'jsync matches what we expected';
+   jsync_ok $jsync,                  'jsync is well formed';
+   jsync_is $jsync, $expected_jsync, 'jsync matches what we expected';
 
 =head1 DESCRIPTION
 
@@ -90,11 +90,11 @@ doing."
 
 =head1 EXPORTED TESTS
 
-=head2 is_valid_jsync
+=head2 jsync_ok
 
 Test passes if the string passed is valid JSYNC.
 
-   is_valid_jsync $jsync, 'jsync is well formed';
+   jsync_ok $jsync, 'jsync is well formed';
 
 =head2 jsync_is
 

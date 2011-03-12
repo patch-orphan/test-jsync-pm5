@@ -55,7 +55,7 @@ check_test(
 $name = 'Valid JSON should succeed';
 $json = '{"bool":1,"name":"fo","id":1,"description":null}';
 check_test(
-    sub { is_valid_jsync $json, $name },
+    sub { jsync_ok $json, $name },
     {
         ok   => 1,
         name => $name,
@@ -66,7 +66,7 @@ check_test(
 $name    = 'Invalid JSON should fail';
 $invalid = '{"bool":1,"name":"fo","id":1,"description":nul}';
 check_test(
-    sub { is_valid_jsync $invalid, $name },
+    sub { jsync_ok $invalid, $name },
     {
         ok   => 0,
         name => $name,

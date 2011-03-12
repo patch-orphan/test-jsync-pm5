@@ -55,7 +55,7 @@ check_test(
 $name  = 'Valid JSYNC should succeed';
 $jsync = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*1",null]]';
 check_test(
-    sub { is_valid_jsync $jsync, $name },
+    sub { jsync_ok $jsync, $name },
     {
         ok   => 1,
         name => $name,
@@ -66,7 +66,7 @@ check_test(
 $name    = 'Invalid JSYNC should fail';
 $invalid = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/arry:Foo","*1",null]]';
 check_test(
-    sub { is_valid_jsync $invalid, $name },
+    sub { jsync_ok $invalid, $name },
     {
         ok   => 0,
         name => $name,

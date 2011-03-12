@@ -7,8 +7,8 @@ VERSION
 SYNOPSIS
        use Test::JSYNC;
 
-       is_valid_jsync $jsync,                  'jsync is well formed';
-       jsync_is       $jsync, $expected_jsync, 'jsync matches what we expected';
+       jsync_ok $jsync,                  'jsync is well formed';
+       jsync_is $jsync, $expected_jsync, 'jsync matches what we expected';
 
 DESCRIPTION
     JSON YAML Notation Coding (JSYNC) is an extension of JSON that can
@@ -21,10 +21,10 @@ DESCRIPTION
     know what you are doing."
 
 EXPORTED TESTS
-  is_valid_jsync
+  jsync_ok
     Test passes if the string passed is valid JSYNC.
 
-       is_valid_jsync $jsync, 'jsync is well formed';
+       jsync_ok $jsync, 'jsync is well formed';
 
   jsync_is
     Test passes if the two JSYNC strings are valid JSYNC and evaluate to the
