@@ -1,7 +1,9 @@
-#!perl 
+#!perl
+use strict;
+use warnings;
 use Test::Tester;
-use Test::JSYNC;
 use Test::More tests => 36;
+use Test::JSYNC;
 
 my $json = '{"bool":1,"name":"foo","id":1,"description":null}';
 my ($name, $invalid, $is, $isnt);

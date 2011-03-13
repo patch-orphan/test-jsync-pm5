@@ -1,7 +1,9 @@
-#!perl 
+#!perl
+use strict;
+use warnings;
 use Test::Tester;
-use Test::JSYNC;
 use Test::More tests => 36;
+use Test::JSYNC;
 
 my $jsync = '[{"&":"1","..!":"foo","a":"*1"},["!!perl/array:Foo","*1",null]]';
 my ($name, $invalid, $is, $isnt);
