@@ -2,7 +2,7 @@ NAME
     Test::JSYNC - Test JSYNC data
 
 VERSION
-    This document describes Test::JSYNC version 0.01.
+    This document describes Test::JSYNC version 0.02.
 
 SYNOPSIS
        use Test::JSYNC;
@@ -60,10 +60,8 @@ SEE ALSO
     This module uses JSYNC and Test::Differences, and is based on
     Test::JSON.
 
-AUTHORS
+AUTHOR
     Nick Patch <patch@cpan.org>
-
-    Curtis "Ovid" Poe <ovid@cpan.org>
 
 ACKNOWLEDGEMENTS
     This module was forked from Test::JSON by Curtis "Ovid" Poe.

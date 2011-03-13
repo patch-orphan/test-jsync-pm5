@@ -8,7 +8,7 @@ use Carp;
 use JSYNC;
 use Test::Differences;
 
-our $VERSION   = '0.01';
+our $VERSION   = '0.02';
 our @EXPORT    = qw( jsync_ok jsync_is );
 our @EXPORT_OK = qw( is_valid_jsync is_jsync );
 
@@ -70,7 +70,7 @@ Test::JSYNC - Test JSYNC data
 
 =head1 VERSION
 
-This document describes Test::JSYNC version 0.01.
+This document describes Test::JSYNC version 0.02.
 
 =cut
 
@@ -136,11 +136,9 @@ convention as L<Test::JSON> but is not exported by default.
 This module uses L<JSYNC> and L<Test::Differences>, and is based on
 L<Test::JSON>.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
 Nick Patch <patch@cpan.org>
-
-Curtis "Ovid" Poe <ovid@cpan.org>
 
 =head1 ACKNOWLEDGEMENTS
 
