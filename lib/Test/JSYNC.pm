@@ -1,14 +1,15 @@
 package Test::JSYNC;
 
-use 5.006;
+use v5.6;
 use strict;
+use utf8;
 use parent 'Test::Builder::Module';
 use English qw( -no_match_vars );
 use Carp;
 use JSYNC;
 use Test::Differences;
 
-our $VERSION   = '0.02';
+our $VERSION   = '0.02_1';
 our @EXPORT    = qw( jsync_ok jsync_is );
 our @EXPORT_OK = qw( is_valid_jsync is_jsync );
 
@@ -64,13 +65,15 @@ sub jsync_is ($$;$) {
 
 __END__
 
+=encoding UTF-8
+
 =head1 NAME
 
 Test::JSYNC - Test JSYNC data
 
 =head1 VERSION
 
-This document describes Test::JSYNC version 0.02.
+This document describes Test::JSYNC v0.02_1.
 
 =cut
 
@@ -83,14 +86,14 @@ This document describes Test::JSYNC version 0.02.
 
 =head1 DESCRIPTION
 
-JSON YAML Notation Coding (JSYNC) is an extension of JSON that can serialize
-any data objects.  Test::JSYNC makes it easy to verify that you have built
-valid JSYNC and that it matches your expected output.
+JSON YAML Notation Coding (JSYNC) is an extension of JSON that can serialize any
+data objects.  Test::JSYNC makes it easy to verify that you have built valid
+JSYNC and that it matches your expected output.
 
-This module uses the L<JSYNC> module, which is currently the only CPAN module
-to support JSYNC; however, the module itself states that it "is a very early
+This module uses the L<JSYNC> module, which is currently the only CPAN module to
+support JSYNC; however, the module itself states that it “is a very early
 release of JSYNC, and should not be used at all unless you know what you are
-doing."
+doing.”
 
 =head1 EXPORTED TESTS
 
@@ -142,15 +145,13 @@ Nick Patch <patch@cpan.org>
 
 =head1 ACKNOWLEDGEMENTS
 
-This module was forked from L<Test::JSON> by Curtis "Ovid" Poe.
+This module was forked from L<Test::JSON> by Curtis “Ovid” Poe.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2011 Nick Patch
+© 2011–2013 Nick Patch
 
-Copyright 2005-2007 Curtis "Ovid" Poe.  All rights reserved.
+© 2005–2007 Curtis “Ovid” Poe
 
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
-=cut
+This library is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.

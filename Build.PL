@@ -1,5 +1,5 @@
-use 5.006;
 use strict;
+use warnings;
 use Module::Build;
 
 my $builder = Module::Build->new(
@@ -11,22 +11,25 @@ my $builder = Module::Build->new(
         'Module::Build' => 0.36,
     },
     build_requires => {
+        'warnings'     => 0,
+        'Test::More'   => 0.41,  # diag()
         'Test::Tester' => 0.107,
     },
     requires => {
         'perl'              => '5.6.0',
         'parent'            => 0,
+        'strict'            => 0,
+        'utf8'              => 0,
         'JSYNC'             => 0,
         'Test::Differences' => 0.47,
-        'Test::Simple'      => 0.62,
     },
     meta_merge => {
         resources => {
             repository => 'git://github.com/patch/test-jsync-pm5.git',
-            homepage   => 'http://github.com/patch/test-jsync-pm5',
-            bugtracker => 'http://github.com/patch/test-jsync-pm5/issues',
+            homepage   => 'https://github.com/patch/test-jsync-pm5',
+            bugtracker => 'https://github.com/patch/test-jsync-pm5/issues',
         },
     },
 );
 
-$builder->create_build_script();
+$builder->create_build_script;

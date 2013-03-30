@@ -1,6 +1,6 @@
-#!perl
 use strict;
 use warnings;
+use utf8;
 use Test::Tester;
 use Test::More tests => 36;
 use Test::JSYNC;

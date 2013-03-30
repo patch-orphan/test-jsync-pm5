@@ -6,6 +6,9 @@ cpanm Test::JSYNC
 # install via CPAN shell
 cpan Test::JSYNC
 
+# install via ActivePerl
+ppm install Test::JSYNC
+
 # install manually
 perl Build.PL
 ./Build

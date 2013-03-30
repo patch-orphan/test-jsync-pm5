@@ -2,7 +2,7 @@ NAME
     Test::JSYNC - Test JSYNC data
 
 VERSION
-    This document describes Test::JSYNC version 0.02.
+    This document describes Test::JSYNC v0.02_1.
 
 SYNOPSIS
        use Test::JSYNC;
@@ -16,9 +16,9 @@ DESCRIPTION
     have built valid JSYNC and that it matches your expected output.
 
     This module uses the JSYNC module, which is currently the only CPAN
-    module to support JSYNC; however, the module itself states that it "is a
+    module to support JSYNC; however, the module itself states that it “is a
     very early release of JSYNC, and should not be used at all unless you
-    know what you are doing."
+    know what you are doing.”
 
 EXPORTED TESTS
   jsync_ok
@@ -64,13 +64,13 @@ AUTHOR
     Nick Patch <patch@cpan.org>
 
 ACKNOWLEDGEMENTS
-    This module was forked from Test::JSON by Curtis "Ovid" Poe.
+    This module was forked from Test::JSON by Curtis “Ovid” Poe.
 
 COPYRIGHT & LICENSE
-    Copyright 2011 Nick Patch
+    © 2011–2013 Nick Patch
 
-    Copyright 2005-2007 Curtis "Ovid" Poe. All rights reserved.
+    © 2005–2007 Curtis “Ovid” Poe
 
-    This program is free software; you can redistribute it and/or modify it
+    This library is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
 
