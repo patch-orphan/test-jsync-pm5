@@ -11,7 +11,6 @@ my $builder = Module::Build->new(
         'Module::Build' => 0.36,
     },
     build_requires => {
-        'warnings'     => 0,
         'Test::More'   => 0.41,  # diag()
         'Test::Tester' => 0.107,
     },
@@ -20,6 +19,7 @@ my $builder = Module::Build->new(
         'parent'            => 0,
         'strict'            => 0,
         'utf8'              => 0,
+        'warnings'          => 0,
         'JSYNC'             => 0,
         'Test::Differences' => 0.47,
     },

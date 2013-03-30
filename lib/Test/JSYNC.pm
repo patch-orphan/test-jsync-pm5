@@ -1,8 +1,9 @@
 package Test::JSYNC;
 
 use v5.6;
-use strict;
 use utf8;
+use strict;
+use warnings;
 use parent 'Test::Builder::Module';
 use English qw( -no_match_vars );
 use Carp;
